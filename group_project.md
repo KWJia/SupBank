@@ -19,7 +19,6 @@ SupBank是一家在线欧洲银行公司，专注于存款账户，透支，信�
 
 2.功能表达
 - 
-M.Sc.1 2018-2019项目
    第一个PoC的主要目标是允许用户之间的交易。用户可以通过他们的钱包应用程序发送资金。一旦用户验证了交易，交易将被转换为令牌，然后在区块链的分散网络上提交以进行验证。
 交易由以下人员组成：发件人公共地址，公共接收者
 •发件人公共地址
@@ -65,11 +64,12 @@ M.Sc.1 2018-2019项目
 
 2.1.1.6 有用的资源
 
-以下是可用于设计/选择系统的非限制性资源列表：•https://www.youtube.com/watch?v=SccvFbyDaUI
-•https：//www.youtube.com/watch？v = SSo_EIwHSd4
-•https：//www.youtube.com/watch？v = 149jOJk30eQs
-•https：//www.youtube.com/watch？v = Lx9zgZCMqXE
-•https：//bitcoin.org/en/developer-guide
+以下是可用于设计/选择系统的非限制性资源列表：
+•https://www.youtube.com/watch?v=SccvFbyDaUI
+•https://www.youtube.com/watch?v=SSo_EIwHSd4
+•https://www.youtube.com/watch?v=149jOJk30eQs
+•https://www.youtube.com/watch?v=Lx9zgZCMqXE
+•https://bitcoin.org/en/developer-guide
 
 2.1.2 钱包
 
@@ -81,7 +81,6 @@ M.Sc.1 2018-2019项目
 
 2.1.3  Web应用程序
 
-M.Sc.1 2018-2019项目
   Web应用程序允许用户以图形方式浏览区块链的内容。
 区块链资源管理器的典型用例是检查给定地址/ pubkey的余额或验证区块链中是否包含给定的事务。
 
@@ -92,8 +91,10 @@ M.Sc.1 2018-2019项目
 2.1.3.2  Web界面
 
 主页显示最后的事务块以及已由不同节点验证的最后事务。
-用户可以单击事务以获取详细信息（发件人/收件人/金额）。用户还可以使用搜索栏按以下方式过滤交易：
-•钱包地址（公钥）•节点
+用户可以单击事务以获取详细信息（发件人/收件人/金额）。
+用户还可以使用搜索栏按以下方式过滤交易：
+•钱包地址（公钥）
+•节点
 •块标识符
 状态页面显示网络的实时地图，包括所有已知节点。
 
