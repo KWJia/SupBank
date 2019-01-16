@@ -10,13 +10,68 @@
     </head>
 
     <body>
+        <noscript>
+            <strong>
+                We're sorry but even doesn't work properly without JavaScript
+                enabled.Please enable it to continue.
+            </strong>
+        </noscript>
         <div id="app">
-            <header class="AppHeader">
+            <header class="AppHeader" role="banner">
                 <div class="AppHeader-inner">
-                    <a class="AppHeader-brand" href="//">SUPBANK</a>
-                    <nav class="AppHeader-nav"></nav>
-                    <div class="AppHeader-searchBar"></div>
-                    <div class="AppHeader-userInfo"></div>
+                    <a class="AppHeader-brand" href="./index.html">SUPBANK</a>
+                    <nav class="AppHeader-nav" role="navigation">
+                        <a href="./view/product.html" class="AppHeader-navItem"
+                            >Product</a
+                        >
+                        <a href="./view/data.html" class="AppHeader-navItem"
+                            >Data</a
+                        >
+                    </nav>
+                    <div class="AppHeader-searchBar" role="search">
+                        <form action="" class="SearchBar-tool">
+                            <div class="SearchBar-input">
+                                <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    class="SearchBar-text"
+                                    placeholder="Lookup blocks, transactions, hash..."
+                                />
+                                <button class="SearchBar-btn" type="button">
+                                    <svg
+                                        class="Icon Icon-search"
+                                        fill="currentColor"
+                                        viewBox="0 0 24 24"
+                                        width="18"
+                                        height="18"
+                                    >
+                                        <path
+                                            d="M17.068 15.58a8.377 8.377 0 0 0 1.774-5.159 8.421 8.421 0 1 0-8.42 8.421 8.38 8.38 0 0 0 5.158-1.774l3.879 3.88c.957.573 2.131-.464 1.488-1.49l-3.879-3.878zm-6.647 1.157a6.323 6.323 0 0 1-6.316-6.316 6.323 6.323 0 0 1 6.316-6.316 6.323 6.323 0 0 1 6.316 6.316 6.323 6.323 0 0 1-6.316 6.316z"
+                                            fill-rule="evenodd"
+                                        ></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="AppHeader-userLoginAndRegister">
+                        <a href="./view/login.html" class="AppHeader-userLogin"
+                            >Login</a
+                        >
+                        <a
+                            href="./view/register.html"
+                            class="AppHeader-userRegister"
+                            >Register</a
+                        >
+                    </div>
+                    <div class="AppHeader-userInfo">
+                        <a
+                            href="./view/profile.html"
+                            class="AppHeader-profileEntry"
+                            >XIE Hui</a
+                        >
+                    </div>
                 </div>
             </header>
         </div>
