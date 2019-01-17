@@ -74,7 +74,36 @@
                     </div>
                 </div>
             </header>
+            <main class="AppMain" role="main">
+                <div class="AppMain-inner">
+                    <div class="AppMain-searchCard Card">
+                        <p class="SearchCard-title">
+                            <span class="SearchCard-titleText">Blockchain Browser</span>
+                        </p>
+                        <p class="SearchCard-tool" role="search">
+                            <form action="" class="SearchCard-input">
+                                <span class="SearchCard-btn">
+                                    <svg class="Icon Icon-search" fill="currentColor" viewBox="0 0 24 24" width="18" height="18">
+                                        <path d="M17.068 15.58a8.377 8.377 0 0 0 1.774-5.159 8.421 8.421 0 1 0-8.42 8.421 8.38 8.38 0 0 0 5.158-1.774l3.879 3.88c.957.573 2.131-.464 1.488-1.49l-3.879-3.878zm-6.647 1.157a6.323 6.323 0 0 1-6.316-6.316 6.323 6.323 0 0 1 6.316-6.316 6.323 6.323 0 0 1 6.316 6.316 6.323 6.323 0 0 1-6.316 6.316z"
+                                            fill-rule="evenodd"></path>
+                                    </svg>
+                                </span>
+                                <input type="text" name="" id="" class="SearchCard-text"/>
+                                <input type="button" value="Go" class="SearchCard-btn">
+                            </form>
+                        </p>
+                        <p class="SearchCard-desc">
+                            <span class="SearchCard-descText">You can lookup address, transactions, blocks or hash...</span>
+                        </p>
+                    </div>
+                </div>
+            </main>
+            <footer class="AppFooter" role="footer">
+                <div class="AppFooter-copyright"></div>
+            </footer>
         </div>
+        <canvas id="backgroundCanvas"></canvas>
+        <script src="./js/background_canvas.js"></script>
         <script src="./js/index.js"></script>
     </body>
 </html>

@@ -116,3 +116,25 @@
 /* .AppHeader-userLoginAndRegister {
     display: none;
 } */
+
+.AppMain-inner {
+    position: relative;
+    width: 1000px;
+    padding: 0 16px;
+    margin: 14px auto;
+}
+
+.AppMain-searchCard {
+    height: 305px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#backgroundCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px;
+    background-color: #f6f6f6;
+    z-index: -1;
+}

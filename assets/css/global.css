@@ -18,3 +18,19 @@ a {
     color: inherit;
     text-decoration: none;
 }
+
+.Icon {
+    vertical-align: text-bottom;
+    fill: currentColor;
+}
+
+.Card {
+    width: auto;
+    background: #fff;
+    overflow: hidden;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 3px rgba(26, 26, 26, 0.2);
+    box-shadow: 0 1px 3px rgba(26, 26, 26, 0.2);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
