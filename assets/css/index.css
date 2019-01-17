@@ -130,6 +130,63 @@
     text-align: center;
 }
 
+.SearchCard-title {
+    margin-top: 62px;
+}
+
+.SearchCard-titleText {
+    font-size: 46px;
+    color: #444444;
+}
+
+.SearchCard-tool {
+    margin-top: 24px;
+}
+
+.SearchCard-container {
+    margin-left: 109px;
+    width: 780px;
+    border: 1px solid #b6b6b6;
+    border-radius: 4px;
+}
+
+.SearchCard-icon {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.SearchCard-text {
+    width: 674px;
+    height: 48px;
+    font-size: 18px;
+    outline: none;
+    border: none;
+}
+
+.SearchCard-btn {
+    width: 58px;
+    height: 52px;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    background: #3385ff;
+    color: #fff;
+    letter-spacing: 1px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.SearchCard-desc {
+    margin-top: 18px;
+}
+
+.SearchCard-descText {
+    font-size: 18px;
+    color: #8590a6;
+}
+
 #backgroundCanvas {
     position: absolute;
     top: 0;
