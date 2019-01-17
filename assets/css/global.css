@@ -22,6 +22,7 @@ a {
 .Icon {
     vertical-align: text-bottom;
     fill: currentColor;
+    text-align: center;
 }
 
 .Card {
@@ -33,4 +34,12 @@ a {
     box-shadow: 0 1px 3px rgba(26, 26, 26, 0.2);
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+.Divider {
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    margin: 0 8px;
+    background: #ebebeb;
 }

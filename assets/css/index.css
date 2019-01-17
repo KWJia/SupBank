@@ -187,6 +187,29 @@
     color: #8590a6;
 }
 
+.AppFooter {
+    text-align: center;
+    margin-top: 38px;
+    margin-bottom: 74px;
+}
+
+.AppFooter-copyright {
+    font-size: 12px;
+}
+
+.AppFooter-copyright .Divider {
+    height: 8px;
+}
+
+.Icon-location {
+    opacity: 1;
+    height: 10px;
+    width: 10px;
+    vertical-align: -1px;
+    margin-right: 6px;
+    margin-left: 22px;
+}
+
 #backgroundCanvas {
     position: absolute;
     top: 0;
