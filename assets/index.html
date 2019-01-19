@@ -34,12 +34,16 @@
                             <div class="SearchBar-input">
                                 <input
                                     type="text"
-                                    name=""
-                                    id=""
+                                    name="SearchBar-text"
+                                    id="SearchBar-text"
                                     class="SearchBar-text"
                                     placeholder="Lookup blocks, transactions, hash..."
                                 />
-                                <button class="SearchBar-btn" type="button">
+                                <button
+                                    class="SearchBar-btn"
+                                    type="button"
+                                    id="SearchBar-btn"
+                                >
                                     <svg
                                         class="Icon Icon-search"
                                         fill="currentColor"
@@ -60,6 +64,7 @@
                         <a href="./view/login.html" class="AppHeader-userLogin"
                             >Login</a
                         >
+                        <i class="Divider"></i>
                         <a
                             href="./view/register.html"
                             class="AppHeader-userRegister"
@@ -102,11 +107,17 @@
                                     </span>
                                     <input
                                         type="text"
-                                        name=""
-                                        id=""
+                                        name="SearchCard-text"
+                                        id="SearchCard-text"
                                         class="SearchCard-text"
                                     />
-                                    <button class="SearchCard-btn">Go</button>
+                                    <button
+                                        class="SearchCard-btn"
+                                        id="SearchCard-btn"
+                                        type="button"
+                                    >
+                                        Go
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -121,7 +132,7 @@
             </main>
             <footer class="AppFooter" role="footer">
                 <div class="AppFooter-copyright">
-                    © <span itemprop="AppFooter-copyrightYear">2018</span>
+                    © <span itemprop="AppFooter-copyrightYear">2019</span>
                     <i class="Divider"></i>
                     <span class="AppFooter-authorName">SupBank</span>
                     <img
@@ -134,7 +145,8 @@
             </footer>
         </div>
         <canvas id="backgroundCanvas"></canvas>
-        <script src="./js/background_canvas.js"></script>
-        <script src="./js/index.js"></script>
+        <script type="text/javascript" src="./js/background_canvas.js"></script>
+        <script type="text/javascript" src="./js/utils.js"></script>
+        <script type="text/javascript" src="./js/index.js"></script>
     </body>
 </html>
