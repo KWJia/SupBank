@@ -54,8 +54,9 @@ var Util = {
         } else {
             request = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        var send_data = JSON.stringify(obj.data);
+
         if (obj.method === "POST") {
+            var send_data = JSON.stringify(obj.data);
             request.open(obj.method, obj.url, obj.async);
             request.setRequestHeader(
                 "Content-Type",
@@ -63,12 +64,17 @@ var Util = {
             );
             request.send(send_data);
         } else if (obj.method === "GET") {
+            var params = [];
+            for (var key in obj.data) {
+                params.push(key + "=" + obj.data[key]);
+            }
+            var send_data = params.join("&");
             request.open(obj.method, obj.url + "?" + send_data, obj.async);
             request.send();
         }
         request.onreadystatechange = function() {
             if (request.readyState === 4 && request.status === 200) {
-                obj.success(request.responseText);
+                obj.success(JSON.parse(request.responseText));
             }
         };
     }

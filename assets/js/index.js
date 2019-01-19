@@ -7,7 +7,7 @@ var handlers = [
             console.log(searchText);
             Util.ajax({
                 method: "POST",
-                url: "//",
+                url: env + "/search",
                 async: true,
                 data: { keyword: searchText },
                 success: function() {}
@@ -23,7 +23,7 @@ var handlers = [
             console.log(searchText);
             Util.ajax({
                 method: "POST",
-                url: "//",
+                url: env + "/search",
                 async: true,
                 data: { keyword: searchText },
                 success: function() {}
