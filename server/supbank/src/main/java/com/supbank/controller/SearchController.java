@@ -15,7 +15,7 @@ import com.supbank.dao.service.SearchService;
 import com.supbank.util.JsonUtil;
 
 @RestController
-@RequestMapping("/kong")
+@RequestMapping("/")
 public class SearchController {
 
 	@Autowired
@@ -23,12 +23,10 @@ public class SearchController {
 	
 	@CrossOrigin
 	@ResponseBody
-	@PostMapping("/test")
-	public String getTestInfo(HttpServletRequest request) {
+	@PostMapping("/search")
+	public String getTestInfo(HttpServletRequest request,@RequestBody DataRow<String,String> params) {
 		DataRow result = null;
-		System.out.println("+++++++++++++++++++++++++++++----");
-		result = searchService.getTestInfo(request);
-		System.out.println("---------------------------");
+		result = searchService.getTestInfo(request,params);
 		return JsonUtil.resultJsonString(result);
 		
 	}
