@@ -54,16 +54,12 @@ var Util = {
         } else {
             request = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        var params = [];
-        for (var key in obj.data) {
-            params.push(key + "=" + obj.data[key]);
-        }
-        var send_data = params.join("&");
+        var send_data = JSON.stringify(obj.data);
         if (obj.method === "POST") {
             request.open(obj.method, obj.url, obj.async);
             request.setRequestHeader(
                 "Content-Type",
-                "application/x-www-form-urlencoded;charset=utf-8"
+                "application/json;charset=utf-8"
             );
             request.send(send_data);
         } else if (obj.method === "GET") {

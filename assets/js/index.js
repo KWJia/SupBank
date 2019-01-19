@@ -5,6 +5,13 @@ var handlers = [
         handler: function() {
             var searchText = document.getElementById("SearchBar-text").value;
             console.log(searchText);
+            Util.ajax({
+                method: "POST",
+                url: "//",
+                async: true,
+                data: { keyword: searchText },
+                success: function() {}
+            });
         },
         p: true
     },
@@ -18,7 +25,7 @@ var handlers = [
                 method: "POST",
                 url: "//",
                 async: true,
-                data: searchText,
+                data: { keyword: searchText },
                 success: function() {}
             });
         },
