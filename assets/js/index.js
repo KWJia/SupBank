@@ -10,7 +10,15 @@ var handlers = [
                 url: env + "/search",
                 async: true,
                 data: { keyword: searchText },
-                success: function() {}
+                success: function(response) {
+                    if (response.result.ack === "success") {
+                        if (response.result.blockList.length > 0) {
+                        } else if (response.result.transactionList.length > 0) {
+                        }
+                    } else {
+                        console.log(response.result.errorMessage);
+                    }
+                }
             });
         },
         p: true
@@ -26,7 +34,15 @@ var handlers = [
                 url: env + "/search",
                 async: true,
                 data: { keyword: searchText },
-                success: function() {}
+                success: function(response) {
+                    if (response.result.ack === "success") {
+                        if (response.result.blockList.length > 0) {
+                        } else if (response.result.transactionList.length > 0) {
+                        }
+                    } else {
+                        console.log(response.result.errorMessage);
+                    }
+                }
             });
         },
         p: true
