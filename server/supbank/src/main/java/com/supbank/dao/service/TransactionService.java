@@ -33,7 +33,7 @@ public class TransactionService {
 	 */
 	public DataRow getTransactionInfoById(HttpServletRequest request, DataRow params) {
 		DataRow result = new DataRow();
-		String sql = "select transactionid,input,output,inputaddress,outputaddress,sum,timestamp from td_transaction where flag=1 and transactionid='"+params.getString("transactionId")+"'";
+		String sql = "select transactionid,input,output,inputaddress,outputaddress,sum,timestamp,blockid from td_transaction where flag=1 and transactionid='"+params.getString("transactionId")+"'";
 		List<DataRow> transactionList = dbService.queryForList(sql);
 		if(transactionList.isEmpty()) {
 			result.put("ack", "error");

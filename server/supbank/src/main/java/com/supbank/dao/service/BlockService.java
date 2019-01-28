@@ -1,5 +1,6 @@
 package com.supbank.dao.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +34,8 @@ public class BlockService {
 	 */
 	public DataRow getBlockInfoById(HttpServletRequest request, DataRow params) {
 		DataRow result = new DataRow();
-		int height = Integer.parseInt(params.getString("height"));
-		String sql = "select * from td_block where flag=1 and height="+height;
+		String hash = params.getString("hash");
+		String sql = "select * from td_block where flag=1 and hash='"+hash+"'";
 		List<DataRow> blockList = dbService.queryForList(sql);
 		if(blockList.isEmpty()) {
 			result.put("ack", "error");
@@ -48,6 +49,49 @@ public class BlockService {
 		}
 		return result;
 	}
+	
+	/**
+	 * 获取最长合法链
+	 * @param request
+	 * @return
+	 */
+	public DataRow getLongestLegalChain(HttpServletRequest request) {
+		DataRow result = new DataRow();
+		List<DataRow> heightestBlockList = dbService.queryForList("select hash,prehash,height,age,transactionnumber,miner,size from td_block where flag=1 and islegal=1 and height =(select max(height) from td_block)");
+
+		List<DataRow> longestLegalChain = new ArrayList<DataRow>();
+		for (DataRow dataRow : heightestBlockList) {
+
+			do {
+				longestLegalChain.add(dataRow);
+				String prehash = dataRow.getString("prehash");
+				String sql = "select hash,prehash,height,age,transactionnumber,miner,size from td_block where flag=1 and islegal=1 and hash='"
+						+ prehash + "'";
+				try {
+					dataRow = dbService.querySimpleRowBySql(sql);
+					if(dataRow.getString("prehash")==null) {
+						longestLegalChain.add(dataRow);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			} while (dataRow.getString("prehash")!=null);
+		}
+		
+		result.put("ack", "success");
+		result.put("errorMessage", "");
+		result.put("timeStamp", System.currentTimeMillis());
+		result.put("longestLegalChain", longestLegalChain);
+		
+		return result;
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 }

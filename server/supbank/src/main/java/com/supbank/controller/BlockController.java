@@ -37,4 +37,21 @@ public class BlockController {
 		return JsonUtil.resultJsonString(result);
 	}
 	
+	
+	/**
+	 * 获取最长合法链
+	 * @param request
+	 * @return
+	 */
+	@CrossOrigin
+	@ResponseBody
+	@PostMapping("/longestLegalChain")
+	public String getLongestLegalChain(HttpServletRequest request) {
+		DataRow result = null;
+		result = blockService.getLongestLegalChain(request);
+		return JsonUtil.resultJsonString(result);
+	}
+	
+	
+	
 }
