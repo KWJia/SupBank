@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="Home">
     <main class="AppMain" role="main">
       <div class="AppMain-inner">
         <div class="AppMain-searchCard Card">
@@ -49,7 +49,7 @@
 
 <script>
 export default {
-  name: 'home',
+  name: 'Home',
 };
 </script>
 
@@ -68,7 +68,7 @@ export default {
 }
 
 .SearchCard-title {
-  margin-top: 62px;
+  margin-top: 26px;
 }
 
 .SearchCard-titleText {

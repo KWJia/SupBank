@@ -2,10 +2,10 @@
   <div class="AppHeader">
     <header role="banner">
       <div class="AppHeader-inner">
-        <a class="AppHeader-brand" href="./index.html">SUPBANK</a>
+        <router-link class="AppHeader-brand" to="/">SUPBANK</router-link>
         <nav class="AppHeader-nav" role="navigation">
-          <a href="./view/product.html" class="AppHeader-navItem">Product</a>
-          <a href="./view/data.html" class="AppHeader-navItem">Data</a>
+          <router-link to="/product" class="AppHeader-navItem">Product</router-link>
+          <router-link to="/data" class="AppHeader-navItem">Data</router-link>
         </nav>
         <div class="AppHeader-searchBar" role="search">
           <form action class="SearchBar-tool">
@@ -34,13 +34,13 @@
             </div>
           </form>
         </div>
-        <div class="AppHeader-userLoginAndRegister">
-          <a href="./view/login.html" class="AppHeader-userLogin">Login</a>
-          <i class="Divider"></i>
-          <a href="./view/register.html" class="AppHeader-userRegister">Register</a>
+        <div class="AppHeader-userSignInAndSignUp">
+          <router-link to="/signin" class="AppHeader-userSignIn">Sign In</router-link>
+          <i class="DividerCol"></i>
+          <router-link to="/signup" class="AppHeader-userSignUp">Sign Up</router-link>
         </div>
         <div class="AppHeader-userInfo">
-          <a href="./view/profile.html" class="AppHeader-profileEntry">XIE Hui</a>
+          <router-link to="/people" class="AppHeader-profileEntry">XIE Hui</router-link>
         </div>
       </div>
     </header>
@@ -143,7 +143,7 @@ export default {
 }
 
 .AppHeader-userInfo,
-.AppHeader-userLoginAndRegister {
+.AppHeader-userSignInAndSignUp {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -159,7 +159,7 @@ export default {
 }
 
 .AppHeader-userInfo a,
-.AppHeader-userLoginAndRegister a {
+.AppHeader-userSignInAndSignUp a {
   padding: 0 16px;
   font-size: 16px;
   line-height: 30px;
@@ -170,7 +170,7 @@ export default {
   display: none;
 }
 
-/* .AppHeader-userLoginAndRegister {
+/* .AppHeader-userSignInAndSignUp {
     display: none;
 } */
 </style>

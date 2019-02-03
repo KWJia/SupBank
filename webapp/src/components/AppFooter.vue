@@ -4,13 +4,9 @@
       <div class="AppFooter-copyright">
         ©
         <span itemprop="AppFooter-copyrightYear">2019</span>
-        <i class="Divider"></i>
+        <i class="DividerCol"></i>
         <span class="AppFooter-authorName">SupBank</span>
-        <img
-          class="Icon Icon-location"
-          src="../assets/img/icon-location-64x64.png"
-          alt="location icon"
-        >
+        <img class="Icon Icon-location" src="../assets/icon-location-64x64.png" alt="location icon">
         <span class="AppFooter-locationText">Tianjin - China</span>
       </div>
     </footer>
@@ -34,7 +30,7 @@ export default {
   font-size: 12px;
 }
 
-.AppFooter-copyright .Divider {
+.AppFooter-copyright .DividerCol {
   height: 8px;
   background: #444444;
 }
