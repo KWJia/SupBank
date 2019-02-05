@@ -7,7 +7,7 @@
             <div class="SignInCard-title">
               <span class="SignInCard-titleTextLeft">Welcome Back!</span>
               <span class="SignInCard-titleTextRight">or
-                <router-link class="SignInCard-signInLink" to="/signup">Sign Up</router-link>
+                <router-link class="SignInCard-signUpLink" to="/signup">Sign Up</router-link>
               </span>
             </div>
             <div class="SignInCard-titleDesc">
@@ -112,7 +112,7 @@ export default {
   color: rgb(84, 84, 86);
   cursor: inherit;
 
-  .SignInCard-signInLink {
+  .SignInCard-signUpLink {
     font-size: 13px;
     font-weight: 500;
     color: rgb(16, 173, 228);
