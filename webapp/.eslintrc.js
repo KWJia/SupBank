@@ -9,7 +9,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'quotes': [1, 'single'],
     'no-debugger': true,
-    'no-console': true,
+    'no-console': 1,
     'no-dupe-args': true,
     'no-dupe-key': true,
     'default-case': true
