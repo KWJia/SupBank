@@ -9,13 +9,28 @@
 <script>
 import AppHeader from '@/components/AppHeader.vue';
 import AppFooter from '@/components/AppFooter.vue';
+import axios from 'axios';
+import utils from './common/utils.js';
 
 export default {
   name: 'app',
   components: {
     AppHeader,
-    AppFooter,
+    AppFooter
   },
+  created() {
+    const checkSignined = () => {
+      axios.get('/checkExpired', utils.getStorage(auth))
+      .then(function(response) {
+        cosnole.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    };
+
+    checkSignined();
+  }
 };
 </script>
 
