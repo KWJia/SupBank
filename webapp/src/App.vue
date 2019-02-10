@@ -22,14 +22,14 @@ export default {
     const checkSignined = () => {
       axios.get('/checkExpired', utils.getStorage(auth))
       .then(function(response) {
-        cosnole.log(response);
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
     };
 
-    checkSignined();
+    //checkSignined();
   }
 };
 </script>
