@@ -69,26 +69,12 @@ export default class AppHeader extends Vue {
       return;
     }
 
-    const xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.open('POST', '//localhost:3000/api/sign_up', true);
-    xmlhttp.setRequestHeader('Content-type', 'application/json');
-    xmlhttp.send(JSON.stringify({
-      data: {
-        
+    this.$router.push({
+      path: 'search',
+      query: {
+        q: this.$data.searchText,
       },
-    }));
-    xmlhttp.onreadystatechange = (): void => {
-      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-        const response = JSON.parse(xmlhttp.responseText);
-
-        if (response.ack === 'success') {
-          alert(response.data.walletid + '\n' + response.data.walletaddress);
-        } else {
-          alert(response.data.msg);
-        }
-      }
-    };
+    });
   }
 }
 </script>
