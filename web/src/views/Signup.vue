@@ -55,6 +55,7 @@ export default class Signup extends Vue {
       confirmPassword: '',
     };
   }
+
   private signup(): void {
     if (!this.checkEmail(this.$data.emailAddress)) {
       alert('email error');
@@ -66,6 +67,7 @@ export default class Signup extends Vue {
       this.requestSignup(this.$data.emailAddress, this.$data.password);
     }
   }
+
   private requestSignup(e: string, pw: string): void {
     const xmlhttp = new XMLHttpRequest();
 
@@ -89,6 +91,7 @@ export default class Signup extends Vue {
       }
     };
   }
+
   private checkEmail(text: string): boolean {
     const reg = new RegExp('^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$');
     let res: boolean = false;
@@ -99,6 +102,7 @@ export default class Signup extends Vue {
 
     return res;
   }
+
   private checkPassword(pw: string): boolean {
     const reg = new RegExp('^(?![^a-zA-Z]+$)(?!D+$)');
     let res: boolean = false;

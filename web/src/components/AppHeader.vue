@@ -13,8 +13,9 @@
                 class="search-input"
                 name="search-input"
                 placeholder="Lookup blocks, transactions, hash..."
+                v-model="searchText"
               >
-              <button class="search-btn" type="button">
+              <button class="search-btn" type="button" v-on:click="search">
                 <svg class="icon" fill="currentColor" viewBox="0 0 24 24" width="18" height="18">
                   <path
                     d="M17.068 15.58a8.377 8.377 0 0 0 1.774-5.159 8.421 8.421 0 1 0-8.42 8.421 8.38 8.38 0 0 0 5.158-1.774l3.879 3.88c.957.573 2.131-.464 1.488-1.49l-3.879-3.878zm-6.647 1.157a6.323 6.323 0 0 1-6.316-6.316 6.323 6.323 0 0 1 6.316-6.316 6.323 6.323 0 0 1 6.316 6.316 6.323 6.323 0 0 1-6.316 6.316z"
@@ -48,8 +49,10 @@ export default class AppHeader extends Vue {
   private data() {
     return {
       walletName: null,
+      searchText: '',
     };
   }
+
   private created() {
     const walletName = localStorage.getItem('wallet_name');
     const token = localStorage.getItem('token');
@@ -59,6 +62,33 @@ export default class AppHeader extends Vue {
     } else {
       this.$data.walletName = walletName;
     }
+  }
+
+  private search(): void {
+    if (!this.$data.searchText || this.$data.searchText.length <= 0) {
+      return;
+    }
+
+    const xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open('POST', '//localhost:3000/api/sign_up', true);
+    xmlhttp.setRequestHeader('Content-type', 'application/json');
+    xmlhttp.send(JSON.stringify({
+      data: {
+        
+      },
+    }));
+    xmlhttp.onreadystatechange = (): void => {
+      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+        const response = JSON.parse(xmlhttp.responseText);
+
+        if (response.ack === 'success') {
+          alert(response.data.walletid + '\n' + response.data.walletaddress);
+        } else {
+          alert(response.data.msg);
+        }
+      }
+    };
   }
 }
 </script>
