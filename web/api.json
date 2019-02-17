@@ -43,6 +43,34 @@
       }
     }
   },
+  "search": {
+    "url": "/api/searchTransaction",
+    "type": "get",
+    "request": {
+      "data": {
+        "searchtext": "string"
+      }
+    },
+    "response": {
+      "ack": "success || fail",
+      "data": {
+        "ack: success": {
+          "pages": "int",
+          "searchResultList": [
+            {
+              "amount": "float",
+              "transactionhash": "string",
+              "height": "int",
+              "timestamp": "string"
+            }
+          ]
+        },
+        "ack: fail": {
+          "msg": "string"
+        }
+      }
+    }
+  },
   "getBalance": {
     "url": "/api/getBalance",
     "type": "get",
