@@ -60,6 +60,7 @@ input {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 36px;
+  margin-bottom: 14px;
 }
 
 .icon {

@@ -26,15 +26,39 @@
                         ></path>
                       </svg>
                     </span>
-                    <input type="text" class="search-input" name="search-input">
+                    <input
+                      type="text"
+                      class="search-input"
+                      name="search-input"
+                      v-model="searchText"
+                    >
                   </div>
-                  <input type="button" class="search-btn" value="Go">
+                  <input type="button" class="search-btn" value="Go" v-on:click="search">
                 </div>
               </form>
             </div>
             <div class="desc">
               <span>You can lookup address, transactions, blocks or hash...</span>
             </div>
+          </div>
+          <div class="transactionListCard card">
+            <table class="listTable">
+              <caption>transaction</caption>
+              <tr>
+                <th>Height</th>
+                <th>Hash</th>
+                <th>Amount</th>
+                <th>Time</th>
+              </tr>
+              <tr v-for="(t, k, i) in transactionList">
+                <div v-if="i <= 6">
+                  <td>t.height</td>
+                  <td>t.transactionhash</td>
+                  <td>t.amount</td>
+                  <td>t.timestamp</td>
+                </div>
+              </tr>
+            </table>
           </div>
         </div>
       </main>
@@ -44,6 +68,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import axios from 'axios';
 import AppHeader from '@/components/AppHeader.vue';
 
 @Component({
@@ -51,7 +76,46 @@ import AppHeader from '@/components/AppHeader.vue';
     AppHeader,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  private data() {
+    return {
+      searchText: '',
+      transactionList: [],
+    };
+  }
+
+  private created() {
+    axios.get('//localhost:3000/api/getTransactionList', {
+      params: {
+        pageid: 1,
+      },
+    }).then((response) => {
+      const data = response.data;
+
+      if (data.ack === 'success') {
+        alert(data.data.transactionList);
+        this.$data.transactionList = data.data.transactionList;
+      } else {
+        alert(data.data.msg);
+      }
+    }).catch((error) => {
+      alert(error);
+    });
+  }
+
+  private search(): void {
+    if (!this.$data.searchText || this.$data.searchText.length <= 0) {
+      return;
+    }
+
+    this.$router.push({
+      path: 'search',
+      query: {
+        q: this.$data.searchText,
+      },
+    });
+  }
+}
 </script>
 
 <style scoped>
@@ -62,7 +126,7 @@ export default class Home extends Vue {}
   margin: 14px auto;
 }
 
-.main .searchCard {
+.main .searchCard, .main .transactionListCard {
   text-align: center;
 }
 
@@ -125,5 +189,15 @@ export default class Home extends Vue {}
   margin-bottom: 30px;
   font-size: 18px;
   color: #8590a6;
+}
+
+.listTable {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  justify-content: center;
 }
 </style>

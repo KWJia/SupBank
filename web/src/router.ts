@@ -36,5 +36,27 @@ export default new Router({
         title: 'Sign Up',
       },
     },
+    {
+      path: '/wallet',
+      name: 'wallet',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/Wallet.vue'),
+      meta: {
+        title: 'Wallet',
+      },
+    },
+    {
+      path: '/search',
+      name: 'search',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/Search.vue'),
+      meta: {
+        title: 'Search',
+      },
+    },
   ],
 });
