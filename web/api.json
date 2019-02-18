@@ -11,13 +11,7 @@
     "response": {
       "ack": "success || fail",
       "data": {
-        "ack: success": {
-          "walletid": "string",
-          "walletaddress": "string"
-        },
-        "ack: fail": {
-          "msg": "string"
-        }
+        "msg": "string"
       }
     }
   },
@@ -26,20 +20,15 @@
     "tpye": "post",
     "request": {
       "data": {
-        "walletid": "string",
+        "emailaddress": "string",
         "password": "string"
       }
     },
     "response": {
       "ack": "success || fail",
       "data": {
-        "ack: success": {
-          "token": "string",
-          "walletaddress": "string"
-        },
-        "ack: fail": {
-          "msg": "string"
-        }
+        "token": "string",
+        "msg": "string"
       }
     }
   },
@@ -47,9 +36,7 @@
     "url": "/api/searchTransaction",
     "type": "get",
     "request": {
-      "data": {
-        "searchtext": "string"
-      }
+      "k": "string"
     },
     "response": {
       "ack": "success || fail",
@@ -58,7 +45,6 @@
           "pages": "int",
           "searchResultList": [
             {
-  
               "amount": "float",
               "transactionhash": "string",
               "height": "int",
