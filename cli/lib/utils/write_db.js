@@ -16,7 +16,7 @@ function write_db(db_name, data, encoding) {
       if (err) {
         reject('write database file error: ' + err);
       } else {
-        resolve('write success');
+        resolve(data);
       }
     });
   });

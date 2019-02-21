@@ -25,7 +25,7 @@ const cmd_list = {
   },
   s: {
     name: 'send coins',
-    desc: '  Send AMOUNT of coins from FROM address to TO. Mine on the same node, when -mine is set.',
+    desc: '  Send AMOUNT of coins from FROM address to TO. Mine block, when <mine> is true.',
     controller: 'send_coins',
     option: '-s',
     args: ['amount', 'from', 'to', 'mine'],
