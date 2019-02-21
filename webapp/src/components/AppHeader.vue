@@ -66,12 +66,13 @@ export default {
         return;
       }
 
-      this.router.push({
+      this.$router.push({
         path: 'search',
         query: {
           q: this.searchText,
         },
       });
+      this.$router.go(0);
     },
     signout: function() {
       localStorage.removeItem('wallet_name');

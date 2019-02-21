@@ -71,9 +71,11 @@ export default {
           if (data.ack === 'success') {
             localStorage.setItem('token', data.data.token);
             localStorage.setItem('wallet_name', id);
-            self.router.push({
-              path: 'home',
+            self.$router.push({
+              path: '/',
             });
+          } else {
+            alert(data.data.msg);
           }
         })
         .catch(error => {

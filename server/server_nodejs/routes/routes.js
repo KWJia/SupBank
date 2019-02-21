@@ -14,13 +14,13 @@ var router_list = [
   },
   {
     options: 'post',
-    url: '/search',
+    url: '/s',
     controller: '../controller/search',
   },
   {
     options: 'get',
-    url: '/get_some_tx',
-    controller: '../controller/get_some_tx',
+    url: '/get_new_txs',
+    controller: '../controller/get_new_txs',
   },
 ];
 

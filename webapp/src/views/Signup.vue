@@ -80,7 +80,7 @@ export default {
           let data = response.data;
           if (data.ack === 'success') {
             alert(data.data.msg);
-            self.router.push({
+            self.$router.push({
               path: 'signin',
             });
           } else {

@@ -43,20 +43,18 @@
           </div>
           <div class="transactionListCard card">
             <table class="listTable">
-              <caption>transaction</caption>
+              <caption>Lastest Transaction:</caption>
               <tr>
                 <th>Height</th>
                 <th>Hash</th>
-                <th>Amount</th>
+                <th>Nonce</th>
                 <th>Time</th>
               </tr>
               <tr v-for="(t, k, i) in transactionList">
-                <div v-if="i <= 6">
-                  <td>t.height</td>
-                  <td>t.transactionhash</td>
-                  <td>t.amount</td>
-                  <td>t.timestamp</td>
-                </div>
+                <td>{{t.height}}</td>
+                <td>{{t.hash}}</td>
+                <td>{{t.nonce}}</td>
+                <td>{{`${new Date(t.timestamp).getFullYear()}/${new Date(t.timestamp).getMonth()}/${new Date(t.timestamp).getDate()} ${new Date(t.timestamp).getHours()}:${new Date(t.timestamp).getMinutes()}`}}</td>
               </tr>
             </table>
           </div>
@@ -82,13 +80,12 @@ export default {
   },
   created() {
     this.$axios
-      .get('/api/get_some_tx')
+      .get('/api/get_new_txs')
       .then(response => {
         const data = response.data;
 
         if (data.ack === 'success') {
-          alert(data.data.transactionList);
-          this.data.transactionList = data.data.transactionList;
+          this.transactionList = data.data.txlist;
         } else {
           alert(data.data.msg);
         }
@@ -99,14 +96,14 @@ export default {
   },
   methods: {
     search: () => {
-      if (!this.data.searchText || this.data.searchText.length <= 0) {
+      if (!this.searchText || this.searchText.length <= 0) {
         return;
       }
 
-      this.router.push({
+      this.$router.push({
         path: 'search',
         query: {
-          q: this.data.searchText,
+          q: this.searchText,
         },
       });
     },
@@ -196,5 +193,18 @@ export default {
   -webkit-box-align: center;
   -ms-flex-align: center;
   justify-content: center;
+  width: 100%;
+}
+
+.listTable caption {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #0084ff;
+  text-align: left;
+  width: 920px;
+}
+
+.listTable td {
+  padding: 4px 8px;
 }
 </style>
