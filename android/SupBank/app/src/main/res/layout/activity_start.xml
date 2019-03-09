@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.StartActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/bg_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/app_bg"
+                android:contentDescription="TODO" />
+        </TableRow>
+
+
+        <TableRow android:layout_width="match_parent">
+            <Button
+                android:id="@+id/startApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Experience Now"
+                app:layout_constraintEnd_toStartOf="parent"/>
+        </TableRow>
+
+
+
+    </TableLayout>
+
+</android.support.constraint.ConstraintLayout>
