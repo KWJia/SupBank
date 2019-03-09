@@ -68,7 +68,7 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
 		</dependency>
-		<!-- 引入bitcoinj -->
+		<!-- 引入bitcoinj   -->
 		<dependency>
 	      <groupId>org.bitcoinj</groupId>
 	      <artifactId>bitcoinj-core</artifactId>
