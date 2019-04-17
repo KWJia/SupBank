@@ -41,4 +41,23 @@ public class TransactionController {
 		return JsonUtil.resultJsonString(result);
 	}
 	
+	
+	/**
+	 * 产生交易
+	 * @param request
+	 * @param params
+	 * @return
+	 */
+	@CrossOrigin
+	@ResponseBody
+	@PostMapping("/generateTransaction")
+	public String createTransaction(HttpServletRequest request, @RequestBody DataRow<String,String> params) {
+		transactionService.generateTransaction(request, params);
+		return "success";
+	}
+	
+	
+	
+	
+	
 }

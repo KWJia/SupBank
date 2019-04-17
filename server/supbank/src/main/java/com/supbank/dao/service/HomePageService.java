@@ -47,7 +47,7 @@ private static final Logger logger = LoggerFactory.getLogger(HomePageService.cla
 			result.put("timeStamp", System.currentTimeMillis());
 		}else {
 			result.put("ack", "success");
-			result.put("errorMessage", "");
+			result.put("errorMessage", "success");
 			result.put("timeStamp", System.currentTimeMillis());
 			result.put("transactionList", transactionList);
 			result.put("blockList", blockList1);
@@ -63,12 +63,12 @@ private static final Logger logger = LoggerFactory.getLogger(HomePageService.cla
 	 */
 	public DataRow getLastTransaction(HttpServletRequest request) {
 		DataRow result = new DataRow();
-		/*这里需要在session中查询当前用户的address*/
-		String address = "asdf562dsaf";
-		String sql = "select transactionid,input,output,inputaddress,outputaddress,sum,timestamp from td_transaction where flag=1 and (inputaddress='"+address+"' or outputaddress='"+address+"') order by timestamp desc limit 1";
+//		/*这里需要在session中查询当前用户的address*/
+//		String address = "asdf562dsaf";
+		String sql = "select transactionid,input,output,inputaddress,outputaddress,sum,timestamp from td_transaction where flag=1 and status=2 order by timestamp desc limit 1";
 		List<DataRow> transactionList = dbService.queryForList(sql);
 		result.put("ack", "success");
-		result.put("errorMessage", "");
+		result.put("errorMessage", "success");
 		result.put("timeStamp", System.currentTimeMillis());
 		result.put("transactionList", transactionList);
 		return result;
