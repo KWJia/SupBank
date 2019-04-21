@@ -42,13 +42,10 @@ private static final Logger logger = LoggerFactory.getLogger(HomePageService.cla
 		List<DataRow> blockList2 = dbService.queryForList(sql3);
 		blockList1.addAll(blockList2);
 		if(transactionList.isEmpty()&&blockList1.isEmpty()) {
-			result.put("ack", "error");
+			result.put("status", 1);
 			result.put("errorMessage", "0 result");
-			result.put("timeStamp", System.currentTimeMillis());
 		}else {
-			result.put("ack", "success");
-			result.put("errorMessage", "success");
-			result.put("timeStamp", System.currentTimeMillis());
+			result.put("status", 0);
 			result.put("transactionList", transactionList);
 			result.put("blockList", blockList1);
 		}
@@ -67,9 +64,7 @@ private static final Logger logger = LoggerFactory.getLogger(HomePageService.cla
 //		String address = "asdf562dsaf";
 		String sql = "select transactionid,input,output,inputaddress,outputaddress,sum,timestamp from td_transaction where flag=1 and status=2 order by timestamp desc limit 1";
 		List<DataRow> transactionList = dbService.queryForList(sql);
-		result.put("ack", "success");
-		result.put("errorMessage", "success");
-		result.put("timeStamp", System.currentTimeMillis());
+		result.put("status", 0);
 		result.put("transactionList", transactionList);
 		return result;
 	}

@@ -38,13 +38,10 @@ public class BlockService {
 		String sql = "select * from td_block where flag=1 and hash='"+hash+"'";
 		List<DataRow> blockList = dbService.queryForList(sql);
 		if(blockList.isEmpty()) {
-			result.put("ack", "error");
+			result.put("status", 1);
 			result.put("errorMessage", "0 result");
-			result.put("timeStamp", System.currentTimeMillis());
 		}else {
-			result.put("ack", "success");
-			result.put("errorMessage", "");
-			result.put("timeStamp", System.currentTimeMillis());
+			result.put("status", 0);
 			result.put("blockList", blockList);
 		}
 		return result;
@@ -79,9 +76,7 @@ public class BlockService {
 			} while (dataRow.getString("prehash")!=null);
 		}
 		
-		result.put("ack", "success");
-		result.put("errorMessage", "");
-		result.put("timeStamp", System.currentTimeMillis());
+		result.put("status", 0);
 		result.put("longestLegalChain", longestLegalChain);
 		
 		return result;

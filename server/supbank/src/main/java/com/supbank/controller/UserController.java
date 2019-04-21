@@ -24,29 +24,56 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * 发送验证码
+	 * @param request
+	 * @param params
+	 * @return
+	 */
 	@CrossOrigin
 	@ResponseBody
 	@PostMapping("/sendCode")
 	public String sendCode(HttpServletRequest request, @RequestBody DataRow params) {
 		DataRow result = new DataRow();
-		JSONObject jsonobj = null;
+		
 		String code = EmailUtil.generateCode();
+		System.out.println(code);
 		String address = params.getString("email");
 		boolean isSend = EmailUtil.sendEmail(address, code);
+
 		if(isSend) {
-			result.put("ack", "success");
-			result.put("errorMessage", "send success");
+			result.put("status", 0);
+		
+			HttpSession session = request.getSession();
+			JSONObject jsonobj = new JSONObject();
+			jsonobj.put("code", code);
+			jsonobj.put("timestamp", System.currentTimeMillis());
+			session.setAttribute("verifyCode", jsonobj);
 		}else {
-			result.put("ack", "error");
-			result.put("errorMessage", "send failed");
-			return JsonUtil.resultJsonString(result);
+			result.put("status", 1);
+			result.put("errorMessage", "send verifyCode failed");
 		}
-		HttpSession session = request.getSession();
-		jsonobj.put("code", code);
-		jsonobj.put("timestamp", System.currentTimeMillis());
-		session.setAttribute("verifyCode", jsonobj);
-		
-		
 		return JsonUtil.resultJsonString(result);
 	}
+	
+	
+	
+	/**
+	 * 注册
+	 * @param request
+	 * @param params
+	 * @return
+	 */
+	@CrossOrigin
+	@ResponseBody
+	@PostMapping("/register")
+	public String registerUser(HttpServletRequest request, @RequestBody DataRow<String,String> params) {
+		DataRow result = null;
+		result = userService.registerUser(request, params);
+		return JsonUtil.resultJsonString(result);
+	}
+	
+	
+	
+	
 }

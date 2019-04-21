@@ -41,7 +41,7 @@ public class EmailUtil {
 	public static String generateCode() {
 		String code = "";
 		for(int i=0;i<6;i++) {
-			code += (int)Math.random()*10;
+			code += (int)(Math.random()*10);
 		}
 		return code;
 	}

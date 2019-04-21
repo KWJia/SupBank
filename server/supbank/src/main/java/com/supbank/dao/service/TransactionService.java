@@ -40,13 +40,10 @@ public class TransactionService {
 		String sql = "select transactionid,input,output,inputaddress,outputaddress,sum,timestamp,blockid from td_transaction where flag=1 and transactionid='"+params.getString("transactionId")+"'";
 		List<DataRow> transactionList = dbService.queryForList(sql);
 		if(transactionList.isEmpty()) {
-			result.put("ack", "error");
+			result.put("status",1);
 			result.put("errorMessage", "0 result");
-			result.put("timeStamp", System.currentTimeMillis());
 		}else {
-			result.put("ack", "success");
-			result.put("errorMessage", "success");
-			result.put("timeStamp", System.currentTimeMillis());
+			result.put("status", 0);
 			result.put("transactionList", transactionList);
 		}
 		return result;
