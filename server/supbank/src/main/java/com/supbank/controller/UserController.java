@@ -74,6 +74,21 @@ public class UserController {
 	}
 	
 	
+	/**
+	 * 登陆操作
+	 * @param request
+	 * @param params
+	 * @return
+	 */
+	@CrossOrigin
+	@ResponseBody
+	@PostMapping("/login")
+	public String userLogin(HttpServletRequest request, @RequestBody DataRow<String,String> params) {
+		DataRow result = null;
+		result = userService.login(request, params);
+		return JsonUtil.resultJsonString(result);
+	}
+	
 	
 	
 }

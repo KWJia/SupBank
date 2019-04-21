@@ -27,6 +27,12 @@ public class UserService {
 	@Autowired
 	private WalletService walletService;
 	
+	/**
+	 * 注册
+	 * @param request
+	 * @param params
+	 * @return
+	 */
 	public DataRow registerUser(HttpServletRequest request, DataRow params) {
 		DataRow result = new DataRow<>();
 	
@@ -55,35 +61,37 @@ public class UserService {
 			return result;
 		}
 		
-		//创建钱包
-		DataRow wallet_result = walletService.createWallet();
-		if(wallet_result.getInt("flag")==1) {
-			result.put("errorMessage", "create wallet failed");
-			result.put("errorStatus",4);
-			result.put("status", 1);
-			return result;
-		}
+		
 		
 		DataRow data = new DataRow();
 		String userid = GeneratorIDUtil.generatorId();
-		String walletid = wallet_result.getString("walletid");
+		
 		String username = params.getString("username");
 		String password = MD5Util.makeMD5(params.getString("password"));
 		String email = params.getString("email");
 		int accouttype = params.getInt("accoutType");
 		data.put("userid", userid);
-		data.put("walletid", walletid);
+		
 		data.put("username", username);
 		data.put("password", password);
 		data.put("email", email);
 		data.put("accouttype", accouttype);
 		
-		String sql1 = "select * from td_user where username='"+username+"'";
-		String sql2 = "select * from td_user where email='"+email+"'";
+		String sql1 = "select * from td_user where username='"+username+"' and flag=1";
+		String sql2 = "select * from td_user where email='"+email+"' and flag=1";
 		List<DataRow> usernameList = dbService.queryForList(sql1);
 		List<DataRow> emailList = dbService.queryForList(sql2);
 		if(usernameList.isEmpty()&&emailList.isEmpty()) {
-		
+			//创建钱包
+			DataRow wallet_result = walletService.createWallet();
+			if(wallet_result.getInt("flag")==1) {
+				result.put("errorMessage", "create wallet failed");
+				result.put("errorStatus",4);
+				result.put("status", 1);
+				return result;
+			}
+			String walletid = wallet_result.getString("walletid");
+			data.put("walletid", walletid);
 			try {
 				dbService.Insert("td_user", data);
 			} catch (Exception e) {
@@ -117,6 +125,47 @@ public class UserService {
 		
 		
 	}
+	
+	
+	
+	/**
+	 * 登陆
+	 * @param request
+	 * @param params
+	 * @return
+	 */
+	public DataRow login(HttpServletRequest request, DataRow params) {
+		DataRow result = new DataRow();
+		String username = params.getString("username");
+		String password = params.getString("password");
+		String sql1 = "select username from td_user where username='"+username+"' and flag=1";
+		String sql2 = "select * from td_user where username='"+username+"' and password='"+MD5Util.makeMD5(password)+"' and flag=1";
+		List<DataRow> usernameList = dbService.queryForList(sql1);
+		if(usernameList.isEmpty()) {
+			result.put("status", 1);
+			result.put("errorStatus", 0);
+			result.put("errorMessage", "username error");
+			return result;
+		}
+		List<DataRow> user = dbService.queryForList(sql2);
+		if(user.isEmpty()) {
+			result.put("status", 1);
+			result.put("errorStatus", 1);
+			result.put("errorMessage", "password error");
+			return result;
+		}else {
+			result.put("status", 0);
+			result.put("successMessage", "login success");
+			return result;
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 	
