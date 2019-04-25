@@ -91,4 +91,20 @@ public class UserController {
 	
 	
 	
+	/**
+	 * 获取当前用户余额
+	 * @param request
+	 * @return
+	 */
+	@CrossOrigin
+	@ResponseBody
+	@PostMapping("/getBalance")
+	public String getBalance(HttpServletRequest request) {
+		DataRow result = null;
+		result = userService.getBalance(request);
+		return JsonUtil.resultJsonString(result);
+	}
+	
+	
+	
 }

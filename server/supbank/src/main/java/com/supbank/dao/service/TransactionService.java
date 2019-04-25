@@ -15,6 +15,8 @@ import com.supbank.base.DBService;
 import com.supbank.base.DataRow;
 import com.supbank.util.DateTimeUtil;
 import com.supbank.util.GeneratorIDUtil;
+import com.supbank.util.RSAUtils;
+import com.supbank.util.SHA256Util;
 
 /**
  * 有关交易的Service
@@ -28,6 +30,9 @@ public class TransactionService {
 	
 	@Autowired
 	private DBService dbService;
+	
+	@Autowired
+	private WalletService walletService;
 	
 	/**
 	 * 通过transactionid查询交易详细信息
@@ -56,8 +61,9 @@ public class TransactionService {
 	 * @param params
 	 * @return
 	 */
-	public void generateTransaction(HttpServletRequest request, DataRow params) {
+	public DataRow generateTransaction(HttpServletRequest request, DataRow params) {
 		
+		DataRow result = new DataRow();
 		String id = GeneratorIDUtil.generatorId();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
@@ -65,15 +71,37 @@ public class TransactionService {
 //		params.put("timestamp", sdf.format(date));
 		params.put("timestamp", DateTimeUtil.getNowDateStr());
 		params.put("status", 1);
+		/*签名操作*/
+		String input = params.getString("input");
+		String output = params.getString("output");
+		String sum = params.getString("sum");
+		String tx_infor = id+input+output+sum;
 		
-		params.put("flag", 1);
-		
-		try {
-			dbService.Insert("td_transaction", params);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		DataRow privKey_result = walletService.getPrivateKeyByAddress(input);
+		if(privKey_result.getInt("flag")==1) {
+			String privKey = privKey_result.getString("privateKey");
+			String signature;
+			try {
+				signature = RSAUtils.sign(tx_infor.getBytes(), privKey);
+//				System.out.println(signature);
+				params.put("signature", signature);
+				dbService.Insert("td_transaction", params);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				result.put("status", 1);
+				result.put("errorMessage", "create tx error");
+				e.printStackTrace();
+			}
+			result.put("status", 0);
+			result.put("successMessage", "create tx success");
+			
+		}else {
+			result.put("status", 1);
+			result.put("errorMessage", "getPrivKeyByAddress error");
 		}
+		
+		return result;
 	}
 	
 	

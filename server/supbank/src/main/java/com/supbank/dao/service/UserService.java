@@ -156,6 +156,7 @@ public class UserService {
 		}else {
 			result.put("status", 0);
 			result.put("successMessage", "login success");
+			request.getSession().setAttribute("username", username);
 			return result;
 		}
 		
@@ -163,7 +164,32 @@ public class UserService {
 	}
 	
 	
-	
+	/**
+	 * 获取当前用户余额
+	 * @param request
+	 * @return
+	 */
+	public DataRow getBalance(HttpServletRequest request) {
+		DataRow result = new DataRow();
+		String username = request.getSession().getAttribute("username").toString();
+		if(null==username||("").equals(username)) {
+			result.put("status", 1);
+			result.put("errorMessage", "session expired");
+			return result;
+		}
+		String sql = "SELECT a.balance FROM td_wallet a, td_user b WHERE a.flag=1 AND b.flag=1 AND b.username='"+username+"' AND a.walletid=b.walletid";
+		try {
+			DataRow value = dbService.querySimpleRowBySql(sql);
+			result.put("status", 0);
+			result.put("successMessage", "getBalance success");
+			result.put("balance", value.getInt("balance"));
+		} catch (Exception e) {
+			result.put("status", 1);
+			result.put("errorMessage", "getBalance error");
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	
 	

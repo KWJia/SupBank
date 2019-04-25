@@ -61,4 +61,31 @@ public class WalletService {
 		return result;
 		
 	}
+	
+	
+	
+	/**
+	 * 根据address查询私钥
+	 * @param address
+	 * @return
+	 */
+	public DataRow getPrivateKeyByAddress(String address) {
+		DataRow result = new DataRow();
+		String sql = "select privateKey from td_wallet where flag=1 and address='"+address+"'";
+		try {
+			DataRow value = dbService.querySimpleRowBySql(sql);
+			result.put("flag", 1);
+			result.put("privateKey", value.getString("privateKey"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			result.put("flag", 0);
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
 }

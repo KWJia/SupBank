@@ -34,7 +34,7 @@ public class TransactionController {
 	 */
 	@CrossOrigin
 	@ResponseBody
-	@PostMapping("/getTransactionById")
+	@PostMapping("/transfer")
 	public String getTransactionInfo(HttpServletRequest request, @RequestBody DataRow<String,String> params) {
 		DataRow result = null;
 		result = transactionService.getTransactionInfoById(request, params);
@@ -52,8 +52,8 @@ public class TransactionController {
 	@ResponseBody
 	@PostMapping("/generateTransaction")
 	public String createTransaction(HttpServletRequest request, @RequestBody DataRow<String,String> params) {
-		transactionService.generateTransaction(request, params);
-		return "success";
+		DataRow result = transactionService.generateTransaction(request, params);
+		return JsonUtil.resultJsonString(result);
 	}
 	
 	
