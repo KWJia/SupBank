@@ -34,7 +34,7 @@ public class TransactionController {
 	 */
 	@CrossOrigin
 	@ResponseBody
-	@PostMapping("/transfer")
+	@PostMapping("/getTransactionById")
 	public String getTransactionInfo(HttpServletRequest request, @RequestBody DataRow<String,String> params) {
 		DataRow result = null;
 		result = transactionService.getTransactionInfoById(request, params);
@@ -50,13 +50,27 @@ public class TransactionController {
 	 */
 	@CrossOrigin
 	@ResponseBody
-	@PostMapping("/generateTransaction")
+	@PostMapping("/transfer")
 	public String createTransaction(HttpServletRequest request, @RequestBody DataRow<String,String> params) {
 		DataRow result = transactionService.generateTransaction(request, params);
 		return JsonUtil.resultJsonString(result);
 	}
 	
 	
+	
+	
+	/**
+	 * 查询用户自己近期交易
+	 * @param request
+	 * @return
+	 */
+	@CrossOrigin
+	@ResponseBody
+	@PostMapping("/recentTx")
+	public String queryRecentTransaction(HttpServletRequest request) {
+		DataRow result = transactionService.getRecentTransactions(request);
+		return JsonUtil.resultJsonString(result);
+	}
 	
 	
 	

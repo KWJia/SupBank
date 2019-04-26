@@ -42,7 +42,7 @@ public class TransactionService {
 	 */
 	public DataRow getTransactionInfoById(HttpServletRequest request, DataRow params) {
 		DataRow result = new DataRow();
-		String sql = "select transactionid,input,output,inputaddress,outputaddress,sum,timestamp,blockid from td_transaction where flag=1 and transactionid='"+params.getString("transactionId")+"'";
+		String sql = "select transactionid,input,output,sum,timestamp,blockid from td_transaction where flag=1 and status=2 and transactionid='"+params.getString("transactionId")+"'";
 		List<DataRow> transactionList = dbService.queryForList(sql);
 		if(transactionList.isEmpty()) {
 			result.put("status",1);
@@ -104,6 +104,36 @@ public class TransactionService {
 		return result;
 	}
 	
+	
+	
+	/**
+	 * 查询近期交易（App）
+	 * @param request
+	 * @return
+	 */
+	public DataRow getRecentTransactions(HttpServletRequest request) {
+		DataRow result = new DataRow();
+		String username = request.getSession().getAttribute("username").toString();
+		//查询user的address
+		String sql1 = "SELECT a.address FROM td_wallet a,td_user b WHERE b.username='"+username+"' AND a.walletid=b.walletid AND b.flag=1";
+		try {
+			DataRow value = dbService.querySimpleRowBySql(sql1);
+			String address = value.getString("address");
+			//查询最近交易列表
+			String sql = "SELECT transactionid,input,output,sum,blockid,timestamp FROM td_transaction WHERE flag=1 AND STATUS=2 AND (input='"+address+"' OR output='"+address+"') ORDER BY TIMESTAMP DESC";
+			List<DataRow> transactionList = dbService.queryForList(sql);
+			result.put("status", 0);
+			result.put("successMessage", "query success");
+			result.put("transactionList", transactionList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			result.put("status", 1);
+			result.put("errorMessage", "query error");
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
 	
 	
