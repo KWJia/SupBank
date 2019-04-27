@@ -73,5 +73,17 @@ public class TransactionController {
 	}
 	
 	
+	@CrossOrigin
+	@ResponseBody
+	@PostMapping("/verify")
+	public String verifyTx() {
+		DataRow result = transactionService.txVerifyAndEditBalance("1904271708530001", "test_blockid");
+		return JsonUtil.resultJsonString(result);
+	}
+	
+	
+	
+	
+	
 	
 }

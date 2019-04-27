@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.supbank.base.DBService;
 import com.supbank.base.DataRow;
@@ -42,7 +43,7 @@ public class TransactionService {
 	 */
 	public DataRow getTransactionInfoById(HttpServletRequest request, DataRow params) {
 		DataRow result = new DataRow();
-		String sql = "select transactionid,input,output,sum,timestamp,blockid from td_transaction where flag=1 and status=2 and transactionid='"+params.getString("transactionId")+"'";
+		String sql = "select transactionid,input,output,sum,timestamp,blockid,status from td_transaction where flag=1 and transactionid='"+params.getString("transactionId")+"'";
 		List<DataRow> transactionList = dbService.queryForList(sql);
 		if(transactionList.isEmpty()) {
 			result.put("status",1);
@@ -74,7 +75,7 @@ public class TransactionService {
 		/*签名操作*/
 		String input = params.getString("input");
 		String output = params.getString("output");
-		String sum = params.getString("sum");
+		double sum = params.getDouble("sum");
 		String tx_infor = id+input+output+sum;
 		
 		DataRow privKey_result = walletService.getPrivateKeyByAddress(input);
@@ -103,6 +104,103 @@ public class TransactionService {
 		
 		return result;
 	}
+	
+	
+	
+	/**
+	 * 验证交易并更新余额
+	 * @param transactionid
+	 * @param blockid
+	 * @return
+	 */
+	@Transactional
+	public DataRow txVerifyAndEditBalance(String transactionid,String blockid) {
+		DataRow result = new DataRow();
+		String input = "";
+		String output = "";
+		double sum = 0;
+		//查询交易信息
+		String txInforSQL = "select * from td_transaction where flag=1 and transactionid='"+transactionid+"'";
+		DataRow tx = null;
+		try {
+			tx = dbService.querySimpleRowBySql(txInforSQL);
+			if(tx.isEmpty()) {
+				result.put("status", 1);
+				result.put("errorMessage", "transaction is not existed");
+				return result;
+			}
+		} catch (Exception e1) {
+			result.put("status", 1);
+			result.put("errorMessage", "query txInfor db error");
+			e1.printStackTrace();
+			return result;
+		}
+		input = tx.getString("input");
+		output = tx.getString("output");
+		sum = tx.getDouble("sum");
+		String tx_infor = transactionid+input+output+sum;
+		String signature = tx.getString("signature");
+		//查询input用户余额
+		double input_balance = 0;
+		String publicKey="";
+		String queryBalanceSQL = "select balance,publicKey from td_wallet where flag=1 and address='"+input+"'";
+		try {
+			DataRow wallet_infor = dbService.querySimpleRowBySql(queryBalanceSQL);
+			input_balance = wallet_infor.getDouble("balance");
+			publicKey = wallet_infor.getString("publicKey");
+		} catch (Exception e) {
+			result.put("status", 1);
+			result.put("errorMessage", "query balance db error");
+			e.printStackTrace();
+			return result;
+		}
+		boolean verifyResult = true;
+		if(input_balance>=sum) {
+			//钱够用
+			try {
+				verifyResult = RSAUtils.verify(tx_infor.getBytes(), publicKey, signature);
+			
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			if(verifyResult) {
+				//验证通过
+				String editInputSQL = "update td_wallet set balance="+(input_balance-sum)+" where flag=1 and address='"+input+"'";
+				String editOutputSQL = "update td_wallet set balance=balance+"+sum+" where flag=1 and address='"+output+"'";
+				String editTxSQL = "update td_transaction set status=2,blockid='"+blockid+"' where flag=1 and transactionid='"+transactionid+"'";
+				try {
+					dbService.UpdateBySql(editInputSQL);
+					dbService.UpdateBySql(editOutputSQL);
+					dbService.UpdateBySql(editTxSQL);
+					result.put("status", 0);
+					result.put("successMessage", "update balance and verify success");
+				} catch (Exception e) {
+					result.put("status", 1);
+					result.put("errorMessage", "update balance db error");
+					e.printStackTrace();
+					return result;
+				}
+			}else {
+				result.put("status", 1);
+				result.put("errorMessage", "verify failed,data maybe changed");
+			}
+			
+			
+		}else {
+			result.put("status", 1);
+			result.put("errorMessage", "balance not enough");
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
